@@ -1,0 +1,11 @@
+body {
+  background: #666;
+}
+
+img {
+  image-rendering: pixelated;
+}
+
+canvas {
+  image-rendering: pixelated;
+}
