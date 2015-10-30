@@ -25,7 +25,7 @@ export default class {
     return image;
   }
 
-  currentFrame() {
+  get currentFrame() {
     if (!(this.drawCounter % 10)) {
       this._currentFrame = (this._currentFrame + 1) % 2;
     }
@@ -54,7 +54,7 @@ export default class {
     this.drawCounter += 1;
 
     this.context.drawImage(this.image,
-                           this.currentFrame() * 31, 0,
+                           this.currentFrame * 31, 0,
                            29, 32,
                            this.pos.x, this.pos.y,
                            29, 32);

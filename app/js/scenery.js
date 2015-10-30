@@ -17,7 +17,7 @@ export default class {
     return image;
   }
 
-  currentFrame() {
+  get currentFrame() {
     if (this.type === 'flower') { return 0; }
     if (!(this.drawCounter % 10)) {
       this._currentFrame = (this._currentFrame + 1) % 2;
@@ -35,7 +35,7 @@ export default class {
     this.drawCounter += 1;
 
     this.context.drawImage(this.image,
-                           this.currentFrame() * (this.size.width + this.borderWidth), 0,
+                           this.currentFrame * (this.size.width + this.borderWidth), 0,
                            this.size.width, this.size.height,
                            this.pos.x, this.pos.y,
                            this.size.width, this.size.height);
