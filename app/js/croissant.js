@@ -38,7 +38,7 @@ export default class {
     this.vel.y = this.jumpVelocity;
   }
 
-  updatePosition() {
+  update() {
     this.vel.y = this.vel.y + this.gravity;
     this.pos.y += this.vel.y;
 
