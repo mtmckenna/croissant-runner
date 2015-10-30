@@ -1,5 +1,6 @@
 import Croissant from './croissant';
-import Scenery from './scenery';
+import Flower from './flower';
+import Bird from './bird';
 
 export default class {
   constructor(canvas) {
@@ -11,7 +12,11 @@ export default class {
     this.drawCounter = 0;
 
     this.context = this.canvas.getContext('2d');
-    this.croissant = new Croissant(this.context, 1, {x: 50, y: 200});
+    this.croissant = new Croissant(this.context,
+                                   { x: 50, y: 200 },
+                                   { width: 29, height: 32 },
+                                   { x: 0, y: 0 },
+                                   1);
 
     this.probabilityOfSceneryPerSecond = 0.1;
     this.sceneries = [];
@@ -30,11 +35,10 @@ export default class {
     if (!this.shouldCreateScenery()) { return; }
     var x = this.canvas.width;
     var y = this.getRandomInt(1, 190);
-    var scenery = new Scenery(this.context,
-                              'bird',
+    var scenery = new Bird(this.context,
                               { x: x, y: y },
                               { width: 7, height: 5 },
-                              -0.5);
+                              { x: -0.5, y: 0 });
 
     this.sceneries.push(scenery);
   }
@@ -43,11 +47,10 @@ export default class {
     if (!this.shouldCreateScenery()) { return; }
     var x = this.canvas.width;
     var y = this.getRandomInt(220, 240);
-    var scenery = new Scenery(this.context,
-                              'flower',
+    var scenery = new Flower(this.context,
                               { x: x, y: y },
                               { width: 6, height: 6 },
-                              -2);
+                              { x: -2, y: 0 });
 
     this.sceneries.push(scenery);
   }

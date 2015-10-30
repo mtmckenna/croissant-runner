@@ -1,11 +1,11 @@
 export default class {
-  constructor(context, type, startingPosition, size, xVelocity) {
+  constructor(type, context, startingPosition, size, velocity) {
     this.type = type;
     this.context = context;
     this.image = this.createImage(type);
     this.pos = startingPosition;
     this.size = size;
-    this.vel = { x: xVelocity };
+    this.vel = { x: velocity.x, y: velocity.y };
     this.drawCounter = 0;
     this._currentFrame = 0;
     this.borderWidth = 2;
@@ -18,7 +18,6 @@ export default class {
   }
 
   get currentFrame() {
-    if (this.type === 'flower') { return 0; }
     if (!(this.drawCounter % 10)) {
       this._currentFrame = (this._currentFrame + 1) % 2;
     }
@@ -28,7 +27,8 @@ export default class {
 
   update() {
     this.pos.x += this.vel.x;
-    return this.pos.x;
+    this.pos.y += this.vel.y;
+    return this.pos;
   }
 
   draw() {
@@ -40,4 +40,5 @@ export default class {
                            this.pos.x, this.pos.y,
                            this.size.width, this.size.height);
   }
+
 }
