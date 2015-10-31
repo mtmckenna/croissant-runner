@@ -1,10 +1,14 @@
 import Sprite from './sprite';
 
 export default class extends Sprite {
-  constructor(context, startingPosition, size, velocity, gravity) {
-    super('croissant', context, startingPosition, size, velocity);
+  constructor(context) {
+    super('croissant',
+          context,
+          { x: 50, y: 200 },
+          { width: 29, height: 32 },
+          { x: 0, y: 0 });
 
-    this.gravity = gravity;
+    this.gravity = 1;
     this.jumpVelocity = -20;
     this.groundLevel = this.pos.y;
 

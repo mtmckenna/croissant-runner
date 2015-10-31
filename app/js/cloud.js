@@ -3,12 +3,12 @@ import { getRandomInt } from './util';
 
 export default class extends Sprite {
   constructor(context) {
-    var y = getRandomInt(220, 240);
-    super('flower',
+    var y = getRandomInt(0, 120);
+    super('cloud',
           context,
           { x: 320, y: y },
-          { width: 6, height: 6 },
-          { x: -1.5, y: 0 });
+          { width: 6, height: 4 },
+          { x: -0.5, y: 0 } );
   }
 
   get currentFrame() {
