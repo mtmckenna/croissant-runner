@@ -11,6 +11,7 @@ export default class {
     this.sceneryFriend = new SceneryFriend(this.context);
 
     this.drawCounter = 0;
+    this.score = 0;
   }
 
   configureCanvas(dimensions) {
@@ -30,11 +31,17 @@ export default class {
     this.context.fillRect(0, 220, 320, 20);
   }
 
+  drawScore() {
+    this.context.font = "15px 'Lucida Console', Monaco, monospace";
+    this.context.fillText(`${this.score} Pizzas`, 10, 25);
+  }
+
   draw() {
     this.drawCounter += 1;
     this.context.clearRect(0, 0, 320, 240);
 
     this.drawGround();
+    this.drawScore();
     this.sceneryFriend.draw();
     this.croissant.draw();
   }
