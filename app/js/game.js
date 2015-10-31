@@ -26,7 +26,7 @@ export default class {
   }
 
   drawGround() {
-    this.context.fillStyle = '#808000';
+    this.context.fillStyle = '#4f8f00';
     this.context.fillRect(0, 220, 320, 20);
   }
 
