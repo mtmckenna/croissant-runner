@@ -47,8 +47,10 @@ export default class {
     });
   }
 
-  shouldCreateSprite(frequency) {
-    return !(this.drawCounter % frequency);
+  shouldCreateSprite(minFrequency, percentageChance = 1.0) {
+    var minAmountOfTime = !(this.drawCounter % minFrequency);
+    var lucky = !!(percentageChance > Math.random());
+    return minAmountOfTime && lucky;
   }
 
   emitScenery() {
@@ -67,7 +69,7 @@ export default class {
   }
 
   emitCatBed() {
-    if (!this.shouldCreateSprite(60)) { return; }
+    if (!this.shouldCreateSprite(60, 0.5)) { return; }
     var catBed = new CatBed(this.context);
     this.sprites.push(catBed);
   }
