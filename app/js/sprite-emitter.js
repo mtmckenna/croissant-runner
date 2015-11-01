@@ -7,59 +7,80 @@ import CatBed from './catbed';
 export default class {
   constructor(context) {
     this.context = context;
-    this.sceneries = [];
-    this.pizzas = [];
-    this.catBeds = [];
+    this.sprites = [];
     this.drawCounter = 0;
-    this.sceneryClasses = [Pizza, CatBed, Flower, Cloud, Bird];
+    this.sceneryClasses = [Flower, Cloud, Bird];
   }
 
-  shouldCreateScenery() {
-    return !(this.drawCounter % 30);
+  get pizzas() {
+    return this.sprites.filter(function(sprite) {
+      return sprite.type === 'pizza';
+    });
   }
 
-  deleteOffscreenSceneries() {
-    this.sceneries.forEach((scenery, index) => {
-      if (scenery.pos.x < 0) {
-        this.sceneries.splice(index, 1);
+  get catBeds() {
+    return this.sprites.filter(function(sprite) {
+      return sprite.type === 'catbed';
+    });
+  }
+
+  shouldCreateScenery(frequency) {
+    return !(this.drawCounter % frequency);
+  }
+
+  emitScenery() {
+    if (!this.shouldCreateScenery(30)) { return; }
+    var randomClassIndex = Math.floor(Math.random() * this.sceneryClasses.length);
+    var SceneryClass = this.sceneryClasses[randomClassIndex];
+    var scenery = new SceneryClass(this.context);;
+
+    this.sprites.push(scenery);
+  }
+
+  emitPizza() {
+    if (!this.shouldCreateScenery(10)) { return; }
+    var pizza = new Pizza(this.context);
+    this.sprites.push(pizza);
+  }
+
+  emitCatBed() {
+    if (!this.shouldCreateScenery(60)) { return; }
+    var catBed = new CatBed(this.context);
+    this.sprites.push(catBed);
+  }
+
+  deleteOffscreenSprites() {
+    this.sprites.forEach((sprite, index) => {
+      if (sprite.pos.x < 0) {
+        this.sprites.splice(index, 1);
       }
     });
   }
 
-  emitScenery() {
-    if (!this.shouldCreateScenery()) { return; }
-    var randomClassIndex = Math.floor(Math.random() * this.sceneryClasses.length);
-    var SceneryClass = this.sceneryClasses[randomClassIndex];
-    var scenery = new SceneryClass(this.context);;
-
-    this.sceneries.push(scenery);
+  updateSprites() {
+    this.sprites.forEach(function(sprite) {
+      sprite.update();
+    });
   }
 
-  emitScenery() {
-    if (!this.shouldCreateScenery()) { return; }
-    var randomClassIndex = Math.floor(Math.random() * this.sceneryClasses.length);
-    var SceneryClass = this.sceneryClasses[randomClassIndex];
-    var scenery = new SceneryClass(this.context);;
-
-    this.sceneries.push(scenery);
-  }
-
-  drawSceneries() {
-    this.sceneries.forEach(function(scenery) {
-      scenery.draw();
+  drawSprites() {
+    this.sprites.forEach(function(sprite) {
+      sprite.draw();
     });
   }
 
   update() {
-    this.deleteOffscreenSceneries();
+    this.deleteOffscreenSprites(this.sceneries);
+    this.deleteOffscreenSprites(this.pizzas);
+    this.deleteOffscreenSprites(this.catBeds);
     this.emitScenery();
-    this.sceneries.forEach(function(scenery) {
-      scenery.update();
-    });
+    this.emitPizza();
+    this.emitCatBed();
+    this.updateSprites();
   }
 
   draw() {
     this.drawCounter += 1;
-    this.drawSceneries();
+    this.drawSprites();
   }
 }
