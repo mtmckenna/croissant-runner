@@ -8,8 +8,8 @@ export default class extends Sprite {
           { width: 29, height: 32 },
           { x: 0, y: 0 });
 
-    this.gravity = 1;
-    this.jumpVelocity = -20;
+    this.gravity = .5;
+    this.jumpVelocity = -14;
     this.groundLevel = this.pos.y;
 
     this.addInputListeners();
