@@ -53,6 +53,12 @@ export default class {
     return minAmountOfTime && lucky;
   }
 
+  emitSprites() {
+    this.emitScenery();
+    this.emitPizza();
+    this.emitCatBed();
+  }
+
   emitScenery() {
     if (!this.shouldCreateSprite(20)) { return; }
     var randomClassIndex = Math.floor(Math.random() * this.sceneryClasses.length);
@@ -75,10 +81,8 @@ export default class {
   }
 
   deleteOffscreenSprites() {
-    this.sprites.forEach((sprite, index) => {
-      if (sprite.pos.x + sprite.size.width < 0) {
-        this.sprites.splice(index, 1);
-      }
+    this.sprites = this.sprites.filter(function(sprite) {
+      return (sprite.pos.x + sprite.size.width > 0);
     });
   }
 
@@ -95,12 +99,8 @@ export default class {
   }
 
   update() {
-    this.deleteOffscreenSprites(this.sceneries);
-    this.deleteOffscreenSprites(this.pizzas);
-    this.deleteOffscreenSprites(this.catBeds);
-    this.emitScenery();
-    this.emitPizza();
-    this.emitCatBed();
+    this.deleteOffscreenSprites();
+    this.emitSprites();
     this.updateSprites();
   }
 
