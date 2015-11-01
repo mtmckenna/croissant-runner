@@ -10,6 +10,19 @@ export default class extends Sprite {
           { x: -1.5, y: 0 } );
   }
 
+  createCroissantInCatBedImage() {
+    var image = new Image();
+    image.src = require(`../images/croissant-in-catbed.png`);
+    return image;
+  }
+
+  switchToSleepingCroissantImage() {
+    this.image = this.createCroissantInCatBedImage();
+    this.pos.y = 206;
+    this.size.height = 32;
+    this.draw();
+  }
+
   get currentFrame() {
     return 0;
   }

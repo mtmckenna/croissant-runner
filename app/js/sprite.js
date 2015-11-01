@@ -26,6 +26,25 @@ export default class {
     return this._currentFrame;
   }
 
+  intersects(anotherSprite) {
+    var r1 = {}, r2 = {};
+
+    r1.left = this.pos.x;
+    r1.right = this.pos.x + this.size.width;
+    r1.top = this.pos.y;
+    r1.bottom = this.pos.y + this.size.height;
+
+    r2.left = anotherSprite.pos.x;
+    r2.right = anotherSprite.pos.x + anotherSprite.size.width;
+    r2.top = anotherSprite.pos.y;
+    r2.bottom = anotherSprite.pos.y + anotherSprite.size.height;
+
+    return !(r2.left > r1.right ||
+             r2.right < r1.left ||
+             r2.top > r1.bottom ||
+             r2.bottom < r1.top);
+  }
+
   update() {
     this.pos.x += this.vel.x;
     this.pos.y += this.vel.y;

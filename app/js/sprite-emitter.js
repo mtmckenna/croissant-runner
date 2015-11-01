@@ -24,12 +24,31 @@ export default class {
     });
   }
 
+  deleteSprites(sprites) {
+    sprites.forEach((sprite) => {
+      var index = this.sprites.indexOf(sprite);
+      this.sprites.splice(index, 1);
+    });
+  }
+
+  pizzasThatSpriteOverlaps(sprite) {
+   return this.pizzas.filter((pizza) => {
+      return sprite.intersects(pizza);
+    });
+  }
+
+  catBedsThatSpriteOverlaps(sprite) {
+   return this.catBeds.filter((catBed) => {
+      return sprite.intersects(catBed);
+    });
+  }
+
   shouldCreateSprite(frequency) {
     return !(this.drawCounter % frequency);
   }
 
   emitScenery() {
-    if (!this.shouldCreateSprite(30)) { return; }
+    if (!this.shouldCreateSprite(20)) { return; }
     var randomClassIndex = Math.floor(Math.random() * this.sceneryClasses.length);
     var SceneryClass = this.sceneryClasses[randomClassIndex];
     var scenery = new SceneryClass(this.context);
@@ -51,7 +70,7 @@ export default class {
 
   deleteOffscreenSprites() {
     this.sprites.forEach((sprite, index) => {
-      if (sprite.pos.x < 0) {
+      if (sprite.pos.x + sprite.size.width < 0) {
         this.sprites.splice(index, 1);
       }
     });

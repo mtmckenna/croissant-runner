@@ -12,6 +12,9 @@ export default class {
 
     this.drawCounter = 0;
     this.score = 0;
+    this.gameOver = false;
+
+    this.addInputListeners();
   }
 
   configureCanvas(dimensions) {
@@ -20,9 +23,45 @@ export default class {
     this.canvas.height = dimensions.height;
   }
 
+  addInputListeners() {
+    window.addEventListener('keydown', this.resetGame.bind(this), false);
+    window.addEventListener('touchstart', this.resetGame.bind(this), false);
+  }
+
+  resetGame() {
+    if (this.gameOver) {
+      this.spriteEmitter.deleteSprites(this.spriteEmitter.sprites);
+      this.score = 0;
+      this.gameOver = false;
+    }
+  }
+
+  checkCollisions() {
+    this.checkPizzaCollisions();
+    this.checkCatBedCollisions();
+  }
+
+  checkPizzaCollisions() {
+    var pizzas = this.spriteEmitter.pizzasThatSpriteOverlaps(this.croissant);
+    this.spriteEmitter.deleteSprites(pizzas);
+    this.score += pizzas.length;
+  }
+
+  checkCatBedCollisions() {
+    var catBeds = this.spriteEmitter.catBedsThatSpriteOverlaps(this.croissant);
+
+    if (catBeds.length) {
+      catBeds[0].switchToSleepingCroissantImage();
+      this.drawWorld();
+      this.gameOver = true;
+    }
+  }
+
   update() {
+    if (this.gameOver) { return; }
     this.spriteEmitter.update();
     this.croissant.update();
+    this.checkCollisions();
   }
 
   drawGround() {
@@ -31,17 +70,22 @@ export default class {
   }
 
   drawScore() {
+    this.context.fillStyle = '#4f8f00';
     this.context.font = '15px "Lucida Console", Monaco, monospace';
     this.context.fillText(`${this.score} Pizzas`, 10, 25);
   }
 
-  draw() {
-    this.drawCounter += 1;
+  drawWorld() {
     this.context.clearRect(0, 0, 320, 240);
-
     this.drawGround();
-    this.drawScore();
     this.spriteEmitter.draw();
+    this.drawScore();
+  }
+
+  draw() {
+    if (this.gameOver) { return; }
+    this.drawCounter += 1;
+    this.drawWorld();
     this.croissant.draw();
   }
 }
