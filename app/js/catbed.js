@@ -8,6 +8,8 @@ export default class extends Sprite {
           { x: 320, y: y },
           { width: 32, height: 28 },
           { x: -1.5, y: 0 } );
+
+    this.croissantInCatBedImage = this.createCroissantInCatBedImage();
   }
 
   createCroissantInCatBedImage() {
@@ -17,7 +19,7 @@ export default class extends Sprite {
   }
 
   switchToSleepingCroissantImage() {
-    this.image = this.createCroissantInCatBedImage();
+    this.image = this.croissantInCatBedImage;
     this.pos.y = 206;
     this.size.height = 32;
     this.draw();
