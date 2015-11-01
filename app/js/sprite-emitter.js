@@ -32,7 +32,7 @@ export default class {
     if (!this.shouldCreateScenery(30)) { return; }
     var randomClassIndex = Math.floor(Math.random() * this.sceneryClasses.length);
     var SceneryClass = this.sceneryClasses[randomClassIndex];
-    var scenery = new SceneryClass(this.context);;
+    var scenery = new SceneryClass(this.context);
 
     this.sprites.push(scenery);
   }

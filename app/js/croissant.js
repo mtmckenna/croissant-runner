@@ -32,7 +32,7 @@ export default class extends Sprite {
     if (this.pos.y > this.groundLevel) {
       this.vel.y = 0;
       this.pos.y = this.groundLevel;
-    };
+    }
 
     return this.pos;
   }

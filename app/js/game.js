@@ -31,7 +31,7 @@ export default class {
   }
 
   drawScore() {
-    this.context.font = "15px 'Lucida Console', Monaco, monospace";
+    this.context.font = '15px "Lucida Console", Monaco, monospace';
     this.context.fillText(`${this.score} Pizzas`, 10, 25);
   }
 

@@ -1,11 +1,11 @@
-require("../css/app.css");
+require('../css/app.css');
 import Game from './game';
 
 var canvas = document.createElement('canvas');
 var game = new Game(canvas);
 var animReq;
 
-document.body.appendChild(canvas)
+document.body.appendChild(canvas);
 
 function main() {
   animReq = window.requestAnimationFrame(main);
