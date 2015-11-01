@@ -19,6 +19,20 @@ function cancelAnimationRequest(e) {
   }
 }
 
-window.addEventListener('keydown', cancelAnimationRequest, false);
+function resizeCanvas() {
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+  var canvasClass = 'tall-canvas';
 
+  if (width > height) {
+    canvasClass = 'wide-canvas';
+  }
+
+  canvas.className = canvasClass;
+}
+
+window.addEventListener('keydown', cancelAnimationRequest, false);
+window.addEventListener('resize', resizeCanvas, false);
+
+resizeCanvas();
 main();

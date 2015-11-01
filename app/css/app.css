@@ -2,6 +2,7 @@ html, body {
   width:  100%;
   height: 100%;
   margin: 0px;
+  text-align: center;
 }
 
 body {
@@ -14,8 +15,13 @@ img {
 
 canvas {
   image-rendering: pixelated;
+  vertical-align: bottom;
 }
 
-canvas {
+.wide-canvas {
   height: 100%;
+}
+
+.tall-canvas {
+  width: 100%;
 }

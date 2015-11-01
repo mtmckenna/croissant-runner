@@ -15,7 +15,6 @@ export default class {
   }
 
   configureCanvas(dimensions) {
-    this.canvas.tabIndex = '1';
     this.canvas.style.backgroundColor = '#66ccff';
     this.canvas.width  = dimensions.width;
     this.canvas.height = dimensions.height;
