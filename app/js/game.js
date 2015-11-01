@@ -30,7 +30,7 @@ export default class {
 
   resetGame() {
     if (this.gameOver) {
-      this.spriteEmitter.deleteSprites(this.spriteEmitter.sprites);
+      this.spriteEmitter.deleteAllSprites();
       this.score = 0;
       this.gameOver = false;
     }

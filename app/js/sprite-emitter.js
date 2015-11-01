@@ -31,6 +31,10 @@ export default class {
     });
   }
 
+  deleteAllSprites() {
+    this.sprites = [];
+  }
+
   pizzasThatSpriteOverlaps(sprite) {
    return this.pizzas.filter((pizza) => {
       return sprite.intersects(pizza);
