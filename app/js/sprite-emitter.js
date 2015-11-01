@@ -24,12 +24,12 @@ export default class {
     });
   }
 
-  shouldCreateScenery(frequency) {
+  shouldCreateSprite(frequency) {
     return !(this.drawCounter % frequency);
   }
 
   emitScenery() {
-    if (!this.shouldCreateScenery(30)) { return; }
+    if (!this.shouldCreateSprite(30)) { return; }
     var randomClassIndex = Math.floor(Math.random() * this.sceneryClasses.length);
     var SceneryClass = this.sceneryClasses[randomClassIndex];
     var scenery = new SceneryClass(this.context);
@@ -38,13 +38,13 @@ export default class {
   }
 
   emitPizza() {
-    if (!this.shouldCreateScenery(10)) { return; }
+    if (!this.shouldCreateSprite(10)) { return; }
     var pizza = new Pizza(this.context);
     this.sprites.push(pizza);
   }
 
   emitCatBed() {
-    if (!this.shouldCreateScenery(60)) { return; }
+    if (!this.shouldCreateSprite(60)) { return; }
     var catBed = new CatBed(this.context);
     this.sprites.push(catBed);
   }
