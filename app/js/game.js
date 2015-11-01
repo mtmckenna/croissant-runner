@@ -1,5 +1,5 @@
 import Croissant from './croissant';
-import SceneryFriend from './scenery-friend';
+import SpriteEmitter from './sprite-emitter';
 
 export default class {
   constructor(canvas) {
@@ -8,7 +8,7 @@ export default class {
     this.configureCanvas({ width: 320, height: 240 });
 
     this.croissant = new Croissant(this.context);
-    this.sceneryFriend = new SceneryFriend(this.context);
+    this.spriteEmitter = new SpriteEmitter(this.context);
 
     this.drawCounter = 0;
     this.score = 0;
@@ -21,7 +21,7 @@ export default class {
   }
 
   update() {
-    this.sceneryFriend.update();
+    this.spriteEmitter.update();
     this.croissant.update();
   }
 
@@ -41,7 +41,7 @@ export default class {
 
     this.drawGround();
     this.drawScore();
-    this.sceneryFriend.draw();
+    this.spriteEmitter.draw();
     this.croissant.draw();
   }
 }
