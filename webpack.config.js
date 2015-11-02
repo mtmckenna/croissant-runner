@@ -15,5 +15,8 @@ module.exports = {
       { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }
     ]
   },
-  plugins: [new HtmlWebpackPlugin()]
+  plugins: [new HtmlWebpackPlugin({
+    template: 'app/html/index.html',
+    favicon: 'app/html/favicon.ico'
+  })]
 };
