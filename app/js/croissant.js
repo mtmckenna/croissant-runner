@@ -27,7 +27,7 @@ export default class extends Sprite {
 
   update() {
     this.vel.y = this.vel.y + this.gravity;
-    this.pos.y += this.vel.y;
+    this.pos.y = Math.floor(this.pos.y + this.vel.y);
 
     if (this.pos.y > this.groundLevel) {
       this.vel.y = 0;

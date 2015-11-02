@@ -46,8 +46,8 @@ export default class {
   }
 
   update() {
-    this.pos.x += this.vel.x;
-    this.pos.y += this.vel.y;
+    this.pos.x = Math.floor(this.pos.x + this.vel.x);
+    this.pos.y = Math.floor(this.pos.y + this.vel.y);
   }
 
   draw() {
