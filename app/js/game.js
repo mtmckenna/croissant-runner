@@ -12,9 +12,20 @@ export default class {
 
     this.drawCounter = 0;
     this.score = 0;
+    this._hiScore = 0;
     this.gameOver = false;
 
     this.addInputListeners();
+  }
+
+  set hiScore(score) {
+    if (score > this.hiScore) {
+      this._hiScore = score;
+    }
+  }
+
+  get hiScore() {
+    return this._hiScore;
   }
 
   configureCanvas(dimensions) {
@@ -49,12 +60,16 @@ export default class {
 
   checkCatBedCollisions() {
     var catBeds = this.spriteEmitter.catBedsThatSpriteOverlaps(this.croissant);
-
     if (catBeds.length) {
-      catBeds[0].switchToSleepingCroissantImage();
-      this.drawWorld();
-      this.gameOver = true;
+      this.goToGameOver(catBeds[0]);
     }
+  }
+
+  goToGameOver(catBed) {
+    catBed.switchToSleepingCroissantImage();
+    this.drawWorld();
+    this.gameOver = true;
+    this.hiScore = this.score;
   }
 
   update() {
@@ -73,6 +88,7 @@ export default class {
     this.context.fillStyle = '#4f8f00';
     this.context.font = '15px "Lucida Console", Monaco, monospace';
     this.context.fillText(`${this.score} Pizzas`, 10, 25);
+    this.context.fillText(`Hi Score: ${this.hiScore}`, 195, 25);
   }
 
   drawWorld() {
