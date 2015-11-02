@@ -17,6 +17,7 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({
     template: 'app/html/index.html',
-    favicon: 'app/html/favicon.ico'
+    favicon: 'app/html/favicon.ico',
+    googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID
   })]
 };

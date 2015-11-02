@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --progress --colors -p",
     "start": "webpack-dev-server --inline",
-    "deploy": "npm run-script build && aws s3 sync --profile mtmckenna --region us-east-1  dist/ s3://runner.mtmckenna.com/"
+    "deploy": "(source .env && npm run-script build && aws s3 sync --profile mtmckenna --region us-east-1  dist/ s3://runner.mtmckenna.com/)"
   },
   "author": "",
   "license": "ISC",
