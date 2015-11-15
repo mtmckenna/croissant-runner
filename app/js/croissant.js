@@ -1,4 +1,5 @@
 import Sprite from './sprite';
+import SoundEffect from './sound-effect';
 
 export default class extends Sprite {
   constructor(context) {
@@ -22,10 +23,9 @@ export default class extends Sprite {
   }
 
   addAudio() {
-    this.jumpAudio = new Audio(require('../audio/jump.wav'));
-    this.pizzaAudio = new Audio(require('../audio/pizza.wav'));
-    this.napAudio = new Audio(require('../audio/nap.wav'));
-    this.napAudio.loop = true;
+    this.jumpAudio = new SoundEffect('jump');
+    this.pizzaAudio = new SoundEffect('pizza');
+    this.napAudio = new SoundEffect('nap', true);
   }
 
   jump() {

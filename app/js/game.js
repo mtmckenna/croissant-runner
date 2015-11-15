@@ -44,7 +44,7 @@ export default class {
       this.spriteEmitter.deleteAllSprites();
       this.score = 0;
       this.gameOver = false;
-      this.croissant.napAudio.pause();
+      this.croissant.napAudio.stop();
     }
   }
 
@@ -59,7 +59,7 @@ export default class {
     this.score += pizzas.length;
 
     pizzas.forEach(() => {
-      this.croissant.pizzaAudio.cloneNode(true).play();
+      this.croissant.pizzaAudio.play();
     });
   }
 
