@@ -14,7 +14,6 @@ export default class extends Sprite {
     this.groundLevel = this.pos.y;
 
     this.addInputListeners();
-    this.addAudio();
   }
 
   addInputListeners() {
@@ -24,11 +23,27 @@ export default class extends Sprite {
 
   addAudio() {
     this.jumpAudio = new SoundEffect('jump');
+    this.jumpAudio.play();
+    this.jumpAudio.stop();
+
     this.pizzaAudio = new SoundEffect('pizza');
+    this.pizzaAudio.play();
+    this.pizzaAudio.stop();
+
     this.napAudio = new SoundEffect('nap', true);
+    this.napAudio.play();
+    this.napAudio.stop();
+  }
+
+  audioIsLoaded() {
+    return this.jumpAudio && this.pizzaAudio && this.napAudio;
   }
 
   jump() {
+    if (!this.audioIsLoaded()) {
+      this.addAudio();
+    }
+
     if (this.pos.y < this.groundLevel) { return; }
     this.vel.y = this.jumpVelocity;
     this.jumpAudio.play();
