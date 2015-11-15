@@ -1,9 +1,8 @@
 export default class {
-  constructor(type, loop = false) {
+  constructor(type, context, loop = false) {
     this.path = require(`../audio/${type}.wav`);
+    this.context = context;
     this.loop = loop;
-    var AudioContext = window.AudioContext || window.webkitAudioContext;
-    this.context = new AudioContext();
     this.loadAudio(this.path);
   }
 
@@ -21,19 +20,21 @@ export default class {
   }
 
   decodeAudio(data) {
+    if (!this.context) { return; }
+
     this.context.decodeAudioData(data, (buffer) => {
       this.buffer = buffer;
     });
   }
 
   play() {
-    if (!this.buffer) { return; }
+    if (!this.buffer || !this.context) { return; }
 
     this.source = this.context.createBufferSource();
     this.source.loop = this.loop;
     this.source.buffer = this.buffer;
     this.source.connect(this.context.destination);
-    this.source.start(this.context.currentTime);
+    this.source.start(0);
   }
 
   stop() {

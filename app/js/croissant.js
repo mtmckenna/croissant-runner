@@ -21,18 +21,10 @@ export default class extends Sprite {
     window.addEventListener('touchstart', this.jump.bind(this), false);
   }
 
-  addAudio() {
-    this.jumpAudio = new SoundEffect('jump');
-    this.jumpAudio.play();
-    this.jumpAudio.stop();
-
-    this.pizzaAudio = new SoundEffect('pizza');
-    this.pizzaAudio.play();
-    this.pizzaAudio.stop();
-
-    this.napAudio = new SoundEffect('nap', true);
-    this.napAudio.play();
-    this.napAudio.stop();
+  addAudio(context) {
+    this.jumpAudio = new SoundEffect('jump', context);
+    this.pizzaAudio = new SoundEffect('pizza', context);
+    this.napAudio = new SoundEffect('nap', context, true);
   }
 
   audioIsLoaded() {
@@ -40,10 +32,6 @@ export default class extends Sprite {
   }
 
   jump() {
-    if (!this.audioIsLoaded()) {
-      this.addAudio();
-    }
-
     if (this.pos.y < this.groundLevel) { return; }
     this.vel.y = this.jumpVelocity;
     this.jumpAudio.play();

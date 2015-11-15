@@ -13,6 +13,7 @@ export default class {
     this.drawCounter = 0;
     this.score = 0;
     this._hiScore = 0;
+    this.userHasInteracted = false;
     this.gameOver = false;
 
     this.addInputListeners();
@@ -35,8 +36,29 @@ export default class {
   }
 
   addInputListeners() {
-    window.addEventListener('keydown', this.resetGame.bind(this), false);
-    window.addEventListener('touchstart', this.resetGame.bind(this), false);
+    window.addEventListener('keydown', this.resetGame.bind(this), true);
+    window.addEventListener('touchstart', this.resetGame.bind(this), true);
+    window.addEventListener('keydown', this.prepareMobileAudio.bind(this), true);
+    window.addEventListener('touchend', this.prepareMobileAudio.bind(this), true);
+  }
+
+  // iOS web audio is such misery.
+  // https://paulbakaus.com/tutorials/html5/web-audio-on-ios/
+  prepareMobileAudio() {
+    if (!this.userHasInteracted) {
+      var AudioContext = window.AudioContext || window.webkitAudioContext;
+      var context = new AudioContext();
+
+      var buffer = context.createBuffer(1, 1, 22050);
+      var source = context.createBufferSource();
+
+      source.buffer = buffer;
+      source.connect(context.destination);
+      source.start(0);
+
+      this.croissant.addAudio(context);
+      this.userHasInteracted = true;
+    }
   }
 
   resetGame() {
