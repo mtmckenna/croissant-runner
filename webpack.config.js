@@ -12,7 +12,7 @@ module.exports = {
       { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
       { test: /\.js$/, exclude: /node_modules/, loader: "eslint-loader" },
       { test: /\.css$/, loader: "style!css" },
-      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }
+      { test: /\.(png|jpg|wav)$/, loader: 'url-loader?limit=8192' }
     ]
   },
   plugins: [new HtmlWebpackPlugin({

@@ -13,6 +13,7 @@ export default class extends Sprite {
     this.groundLevel = this.pos.y;
 
     this.addInputListeners();
+    this.addAudio();
   }
 
   addInputListeners() {
@@ -20,9 +21,17 @@ export default class extends Sprite {
     window.addEventListener('touchstart', this.jump.bind(this), false);
   }
 
+  addAudio() {
+    this.jumpAudio = new Audio(require('../audio/jump.wav'));
+    this.pizzaAudio = new Audio(require('../audio/pizza.wav'));
+    this.napAudio = new Audio(require('../audio/nap.wav'));
+    this.napAudio.loop = true;
+  }
+
   jump() {
     if (this.pos.y < this.groundLevel) { return; }
     this.vel.y = this.jumpVelocity;
+    this.jumpAudio.play();
   }
 
   update() {

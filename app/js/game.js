@@ -44,6 +44,7 @@ export default class {
       this.spriteEmitter.deleteAllSprites();
       this.score = 0;
       this.gameOver = false;
+      this.croissant.napAudio.pause();
     }
   }
 
@@ -56,6 +57,10 @@ export default class {
     var pizzas = this.spriteEmitter.pizzasThatSpriteOverlaps(this.croissant);
     this.spriteEmitter.deleteSprites(pizzas);
     this.score += pizzas.length;
+
+    pizzas.forEach(() => {
+      this.croissant.pizzaAudio.cloneNode(true).play();
+    });
   }
 
   checkCatBedCollisions() {
@@ -67,6 +72,7 @@ export default class {
 
   goToGameOver(catBed) {
     catBed.switchToSleepingCroissantImage();
+    this.croissant.napAudio.play();
     this.drawWorld();
     this.gameOver = true;
     this.hiScore = this.score;
