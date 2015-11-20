@@ -7,7 +7,10 @@ export default class {
     this.context = this.canvas.getContext('2d');
     this.configureCanvas({ width: 320, height: 240 });
 
-    this.croissant = new Croissant(this.context);
+    var AudioContext = window.AudioContext || window.webkitAudioContext;
+    this.audioContext = new AudioContext();
+
+    this.croissant = new Croissant(this.context, this.audioContext);
     this.spriteEmitter = new SpriteEmitter(this.context);
 
     this.drawCounter = 0;
@@ -46,17 +49,15 @@ export default class {
   // https://paulbakaus.com/tutorials/html5/web-audio-on-ios/
   prepareMobileAudio() {
     if (!this.userHasInteracted) {
-      var AudioContext = window.AudioContext || window.webkitAudioContext;
-      var context = new AudioContext();
 
-      var buffer = context.createBuffer(1, 1, 22050);
-      var source = context.createBufferSource();
+      var buffer = this.audioContext.createBuffer(1, 1, 22050);
+      var source = this.audioContext.createBufferSource();
 
       source.buffer = buffer;
-      source.connect(context.destination);
+      source.connect(this.audioContext.destination);
       source.start(0);
 
-      this.croissant.addAudio(context);
+      this.croissant.addAudio(this.audioContext);
       this.userHasInteracted = true;
     }
   }

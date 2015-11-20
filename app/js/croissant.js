@@ -2,9 +2,9 @@ import Sprite from './sprite';
 import SoundEffect from './sound-effect';
 
 export default class extends Sprite {
-  constructor(context) {
+  constructor(canvasContext, audioContext) {
     super('croissant',
-          context,
+          canvasContext,
           { x: 50, y: 200 },
           { width: 29, height: 32 },
           { x: 0, y: 0 });
@@ -13,6 +13,7 @@ export default class extends Sprite {
     this.jumpVelocity = -14;
     this.groundLevel = this.pos.y;
 
+    this.addAudio(audioContext);
     this.addInputListeners();
   }
 
@@ -25,10 +26,6 @@ export default class extends Sprite {
     this.jumpAudio = new SoundEffect('jump', context);
     this.pizzaAudio = new SoundEffect('pizza', context);
     this.napAudio = new SoundEffect('nap', context, true);
-  }
-
-  audioIsLoaded() {
-    return this.jumpAudio && this.pizzaAudio && this.napAudio;
   }
 
   jump() {
