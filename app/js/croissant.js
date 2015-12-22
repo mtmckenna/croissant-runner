@@ -1,8 +1,7 @@
 import Sprite from './sprite';
-import SoundEffect from './sound-effect';
 
 export default class extends Sprite {
-  constructor(canvasContext, audioContext) {
+  constructor(canvasContext) {
     super('croissant',
           canvasContext,
           { x: 50, y: 200 },
@@ -12,26 +11,12 @@ export default class extends Sprite {
     this.gravity = .5;
     this.jumpVelocity = -14;
     this.groundLevel = this.pos.y;
-
-    this.addAudio(audioContext);
-    this.addInputListeners();
-  }
-
-  addInputListeners() {
-    window.addEventListener('keydown', this.jump.bind(this), false);
-    window.addEventListener('touchstart', this.jump.bind(this), false);
-  }
-
-  addAudio(context) {
-    this.jumpAudio = new SoundEffect('jump', context);
-    this.pizzaAudio = new SoundEffect('pizza', context);
-    this.napAudio = new SoundEffect('nap', context, true);
   }
 
   jump() {
-    if (this.pos.y < this.groundLevel) { return; }
+    if (this.pos.y < this.groundLevel) { return false; }
     this.vel.y = this.jumpVelocity;
-    this.jumpAudio.play();
+    return true;
   }
 
   update() {

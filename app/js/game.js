@@ -1,5 +1,6 @@
 import Croissant from './croissant';
 import SpriteEmitter from './sprite-emitter';
+import SoundEffect from './sound-effect';
 
 export default class {
   constructor(canvas) {
@@ -9,6 +10,7 @@ export default class {
 
     var AudioContext = window.AudioContext || window.webkitAudioContext;
     this.audioContext = new AudioContext();
+    this.configureAudioEffects(this.audioContext);
 
     this.croissant = new Croissant(this.context, this.audioContext);
     this.spriteEmitter = new SpriteEmitter(this.context);
@@ -39,6 +41,8 @@ export default class {
   }
 
   addInputListeners() {
+    window.addEventListener('keydown', this.jump.bind(this), false);
+    window.addEventListener('touchstart', this.jump.bind(this), false);
     window.addEventListener('keydown', this.resetGame.bind(this), true);
     window.addEventListener('touchstart', this.resetGame.bind(this), true);
     window.addEventListener('keydown', this.prepareMobileAudio.bind(this), true);
@@ -57,9 +61,21 @@ export default class {
       source.connect(this.audioContext.destination);
       source.start(0);
 
-      this.croissant.addAudio(this.audioContext);
       this.userHasInteracted = true;
     }
+  }
+
+  configureAudioEffects(audioContext) {
+    this.audioHash = {
+      pizza: new SoundEffect('pizza', audioContext),
+      jump: new SoundEffect('jump', audioContext),
+      nap: new SoundEffect('nap', audioContext, true)
+    };
+  }
+
+  jump() {
+    const didJump = this.croissant.jump();
+    if (didJump) { this.playAudio('jump'); }
   }
 
   resetGame() {
@@ -67,7 +83,7 @@ export default class {
       this.spriteEmitter.deleteAllSprites();
       this.score = 0;
       this.gameOver = false;
-      this.croissant.napAudio.stop();
+      this.stopAudio('nap');
     }
   }
 
@@ -82,7 +98,7 @@ export default class {
     this.score += pizzas.length;
 
     pizzas.forEach(() => {
-      this.croissant.pizzaAudio.play();
+      this.playAudio('pizza');
     });
   }
 
@@ -95,7 +111,7 @@ export default class {
 
   goToGameOver(catBed) {
     catBed.switchToSleepingCroissantImage();
-    this.croissant.napAudio.play();
+    this.playAudio('nap');
     this.drawWorld();
     this.gameOver = true;
     this.hiScore = this.score;
@@ -106,6 +122,14 @@ export default class {
     this.spriteEmitter.update();
     this.croissant.update();
     this.checkCollisions();
+  }
+
+  playAudio(effectName) {
+    this.audioHash[effectName].play();
+  }
+
+  stopAudio(effectName) {
+    this.audioHash[effectName].stop();
   }
 
   drawGround() {
