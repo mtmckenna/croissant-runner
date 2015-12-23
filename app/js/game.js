@@ -15,7 +15,6 @@ export default class {
     this.croissant = new Croissant(this.context, this.audioContext);
     this.spriteEmitter = new SpriteEmitter(this.context);
 
-    this.drawCounter = 0;
     this.score = 0;
     this._hiScore = 0;
     this.userHasInteracted = false;
@@ -119,8 +118,8 @@ export default class {
 
   update() {
     if (this.gameOver) { return; }
-    this.spriteEmitter.update();
-    this.croissant.update();
+    this.spriteEmitter.updatePositions();
+    this.croissant.updatePosition();
     this.checkCollisions();
   }
 
@@ -153,7 +152,6 @@ export default class {
 
   draw() {
     if (this.gameOver) { return; }
-    this.drawCounter += 1;
     this.drawWorld();
     this.croissant.draw();
   }

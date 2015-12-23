@@ -88,7 +88,7 @@ export default class {
 
   updateSprites() {
     this.sprites.forEach(function(sprite) {
-      sprite.update();
+      sprite.updatePosition();
     });
   }
 
@@ -98,7 +98,7 @@ export default class {
     });
   }
 
-  update() {
+  updatePositions() {
     this.deleteOffscreenSprites();
     this.emitSprites();
     this.updateSprites();

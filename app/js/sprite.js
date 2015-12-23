@@ -55,7 +55,7 @@ export default class {
              r2.bottom < r1.top);
   }
 
-  update() {
+  updatePosition() {
     this.pos.x = Math.floor(this.pos.x + this.vel.x);
     this.pos.y = Math.floor(this.pos.y + this.vel.y);
   }

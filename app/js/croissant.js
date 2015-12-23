@@ -19,7 +19,7 @@ export default class extends Sprite {
     return true;
   }
 
-  update() {
+  updatePosition() {
     this.vel.y = this.vel.y + this.gravity;
     this.pos.y = Math.floor(this.pos.y + this.vel.y);
 
