@@ -7,8 +7,8 @@ var animReq;
 
 document.body.appendChild(canvas);
 
-function main() {
-  animReq = window.requestAnimationFrame(main);
+function gameLoop() {
+  animReq = window.requestAnimationFrame(gameLoop);
   game.update();
   game.draw();
 }
@@ -35,4 +35,4 @@ window.addEventListener('keydown', cancelAnimationRequest, false);
 window.addEventListener('resize', resizeCanvas, false);
 
 resizeCanvas();
-main();
+gameLoop();
