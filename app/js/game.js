@@ -116,10 +116,14 @@ export default class {
     this.hiScore = this.score;
   }
 
-  update() {
-    if (this.gameOver) { return; }
+  updateSpritePositions() {
     this.spriteEmitter.updatePositions();
     this.croissant.updatePosition();
+  }
+
+  update() {
+    if (this.gameOver) { return; }
+    this.updateSpritePositions();
     this.checkCollisions();
   }
 
