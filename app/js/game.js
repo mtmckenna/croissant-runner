@@ -86,12 +86,12 @@ export default class {
     }
   }
 
-  checkCollisions() {
-    this.checkPizzaCollisions();
-    this.checkCatBedCollisions();
+  handleSpriteCollisions() {
+    this.handlePizzaCollisions();
+    this.handleCatBedCollisions();
   }
 
-  checkPizzaCollisions() {
+  handlePizzaCollisions() {
     var pizzas = this.spriteEmitter.pizzasThatSpriteOverlaps(this.croissant);
     this.spriteEmitter.deleteSprites(pizzas);
     this.score += pizzas.length;
@@ -101,7 +101,7 @@ export default class {
     });
   }
 
-  checkCatBedCollisions() {
+  handleCatBedCollisions() {
     var catBeds = this.spriteEmitter.catBedsThatSpriteOverlaps(this.croissant);
     if (catBeds.length) {
       this.goToGameOver(catBeds[0]);
@@ -124,7 +124,7 @@ export default class {
   update() {
     if (this.gameOver) { return; }
     this.updateSpritePositions();
-    this.checkCollisions();
+    this.handleSpriteCollisions();
   }
 
   playAudio(effectName) {
