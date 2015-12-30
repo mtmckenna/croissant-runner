@@ -78,12 +78,11 @@ export default class {
   }
 
   resetGame() {
-    if (this.gameOver) {
-      this.spriteEmitter.deleteAllSprites();
-      this.score = 0;
-      this.gameOver = false;
-      this.stopAudio('nap');
-    }
+    if (!this.gameOver) { return; }
+    this.spriteEmitter.deleteAllSprites();
+    this.score = 0;
+    this.gameOver = false;
+    this.stopAudio('nap');
   }
 
   handleSpriteCollisions() {
