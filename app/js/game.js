@@ -40,12 +40,12 @@ export default class {
   }
 
   addInputListeners() {
-    window.addEventListener('keydown', this.jump.bind(this), false);
-    window.addEventListener('touchstart', this.jump.bind(this), false);
-    window.addEventListener('keydown', this.resetGame.bind(this), true);
-    window.addEventListener('touchstart', this.resetGame.bind(this), true);
-    window.addEventListener('keydown', this.prepareMobileAudio.bind(this), true);
-    window.addEventListener('touchend', this.prepareMobileAudio.bind(this), true);
+    window.addEventListener('keydown', this.jump.bind(this));
+    window.addEventListener('touchstart', this.jump.bind(this));
+    window.addEventListener('keydown', this.resetGame.bind(this));
+    window.addEventListener('touchstart', this.resetGame.bind(this));
+    window.addEventListener('keydown', this.prepareMobileAudio.bind(this));
+    window.addEventListener('touchend', this.prepareMobileAudio.bind(this));
   }
 
   // iOS web audio is such misery.
