@@ -41,10 +41,13 @@ export default class {
 
   addInputListeners() {
     window.addEventListener('keydown', this.jump.bind(this));
+    window.addEventListener('mousedown', this.jump.bind(this));
     window.addEventListener('touchstart', this.jump.bind(this));
     window.addEventListener('keydown', this.resetGame.bind(this));
+    window.addEventListener('mousedown', this.resetGame.bind(this));
     window.addEventListener('touchstart', this.resetGame.bind(this));
     window.addEventListener('keydown', this.prepareMobileAudio.bind(this));
+    window.addEventListener('mousedown', this.prepareMobileAudio.bind(this));
     window.addEventListener('touchend', this.prepareMobileAudio.bind(this));
   }
 
