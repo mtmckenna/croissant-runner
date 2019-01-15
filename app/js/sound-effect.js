@@ -1,9 +1,10 @@
+const audios = require('../audio/*.wav');
+
 export default class {
   constructor(type, context, loop = false) {
-    this.path = require(`../audio/${type}.wav`);
     this.context = context;
     this.loop = loop;
-    this.loadAudio(this.path);
+    this.loadAudio(audios[type]);
   }
 
   loadAudio(path) {

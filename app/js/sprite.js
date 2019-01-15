@@ -1,3 +1,5 @@
+const images = require('../images/*.png');
+
 export default class {
   constructor(type, context, startingPosition, size, velocity) {
     this.type = type;
@@ -20,7 +22,7 @@ export default class {
 
   createImage(type) {
     var image = new Image();
-    image.src = require(`../images/${type}.png`);
+    image.src = images[type];
     return image;
   }
 
@@ -69,5 +71,5 @@ export default class {
                            this.pos.x, this.pos.y,
                            this.size.width, this.size.height);
   }
-
 }
+

@@ -19,3 +19,5 @@ testem.log
 tags
 .aws_secret_key
 .env
+
+.cache
