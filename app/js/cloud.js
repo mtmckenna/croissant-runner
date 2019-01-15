@@ -3,7 +3,7 @@ import { getRandomInt } from './util';
 
 export default class extends Sprite {
   constructor(context) {
-    var y = getRandomInt(0, 120);
+    const y = getRandomInt(0, 120);
     super('cloud',
           context,
           { x: 320, y: y },

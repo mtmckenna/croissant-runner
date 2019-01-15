@@ -21,7 +21,7 @@ export default class {
   }
 
   createImage(type) {
-    var image = new Image();
+    const image = new Image();
     image.src = images[type];
     return image;
   }
@@ -39,7 +39,7 @@ export default class {
   }
 
   intersects(anotherSprite) {
-    var r1 = {}, r2 = {};
+    const r1 = {}, r2 = {};
 
     r1.left = this.pos.x;
     r1.right = this.pos.x + this.size.width;

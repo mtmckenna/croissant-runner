@@ -5,10 +5,12 @@ import SoundEffect from './sound-effect';
 export default class {
   constructor(canvas) {
     this.canvas = canvas;
+    this.width = 320;
+    this.height = 240;
     this.context = this.canvas.getContext('2d');
-    this.configureCanvas({ width: 320, height: 240 });
+    this.configureCanvas();
 
-    var AudioContext = window.AudioContext || window.webkitAudioContext;
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
     this.audioContext = new AudioContext();
     this.configureAudioEffects(this.audioContext);
 
@@ -33,10 +35,10 @@ export default class {
     return this._hiScore;
   }
 
-  configureCanvas(dimensions) {
+  configureCanvas() {
     this.canvas.style.backgroundColor = '#66ccff';
-    this.canvas.width  = dimensions.width;
-    this.canvas.height = dimensions.height;
+    this.canvas.width  = this.width;
+    this.canvas.height = this.height;
   }
 
   addInputListeners() {
@@ -56,8 +58,8 @@ export default class {
   prepareMobileAudio() {
     if (!this.userHasInteracted) {
 
-      var buffer = this.audioContext.createBuffer(1, 1, 22050);
-      var source = this.audioContext.createBufferSource();
+      const buffer = this.audioContext.createBuffer(1, 1, 22050);
+      const source = this.audioContext.createBufferSource();
 
       source.buffer = buffer;
       source.connect(this.audioContext.destination);
@@ -94,7 +96,7 @@ export default class {
   }
 
   handlePizzaCollisions() {
-    var pizzas = this.spriteEmitter.pizzasThatSpriteOverlaps(this.croissant);
+    const pizzas = this.spriteEmitter.pizzasThatSpriteOverlaps(this.croissant);
     this.spriteEmitter.deleteSprites(pizzas);
     this.score += pizzas.length;
 
@@ -104,7 +106,7 @@ export default class {
   }
 
   handleCatBedCollisions() {
-    var catBeds = this.spriteEmitter.catBedsThatSpriteOverlaps(this.croissant);
+    const catBeds = this.spriteEmitter.catBedsThatSpriteOverlaps(this.croissant);
     if (catBeds.length) {
       this.goToGameOver(catBeds[0]);
     }
@@ -150,7 +152,7 @@ export default class {
   }
 
   drawWorld() {
-    this.context.clearRect(0, 0, 320, 240);
+    this.context.clearRect(0, 0, this.width, this.height);
     this.drawGround();
     this.spriteEmitter.draw();
     this.drawScore();

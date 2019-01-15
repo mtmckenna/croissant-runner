@@ -1,11 +1,9 @@
 require('../css/app.css');
 import Game from './game';
 
-var canvas = document.createElement('canvas');
-var game = new Game(canvas);
-var animReq;
-
-document.body.appendChild(canvas);
+const canvas = document.getElementById('game');
+const game = new Game(canvas);
+let animReq;
 
 function gameLoop() {
   animReq = window.requestAnimationFrame(gameLoop);
@@ -20,11 +18,11 @@ function cancelAnimationRequest(e) {
 }
 
 function resizeCanvas() {
-  var width = window.innerWidth;
-  var height = window.innerHeight;
-  var canvasClass = 'tall-canvas';
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  let canvasClass = 'tall-canvas';
 
-  if (width > height) {
+  if ((width / height) > (game.width / game.height)) {
     canvasClass = 'wide-canvas';
   }
 

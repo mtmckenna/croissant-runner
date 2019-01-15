@@ -2,7 +2,7 @@ import Sprite from './sprite';
 
 export default class extends Sprite {
   constructor(context) {
-    var y = 210;
+    const y = 210;
     super('catbed',
           context,
           { x: 320, y: y },
@@ -13,7 +13,7 @@ export default class extends Sprite {
   }
 
   createCroissantInCatBedImage() {
-    var image = new Image();
+    const image = new Image();
     image.src = require(`../images/croissant-in-catbed.png`);
     return image;
   }

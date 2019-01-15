@@ -5,8 +5,16 @@ html, body {
   text-align: center;
 }
 
+#wrapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
 body {
-  background: #666;
+  background: #444;
 }
 
 img {
@@ -15,7 +23,6 @@ img {
 
 canvas {
   image-rendering: pixelated;
-  vertical-align: bottom;
 }
 
 .wide-canvas {

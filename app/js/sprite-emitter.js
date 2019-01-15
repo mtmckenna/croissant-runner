@@ -26,7 +26,7 @@ export default class {
 
   deleteSprites(sprites) {
     sprites.forEach((sprite) => {
-      var index = this.sprites.indexOf(sprite);
+      const index = this.sprites.indexOf(sprite);
       this.sprites.splice(index, 1);
     });
   }
@@ -48,8 +48,8 @@ export default class {
   }
 
   shouldCreateSprite(minFrequency, percentageChance = 1.0) {
-    var minAmountOfTime = !(this.drawCounter % minFrequency);
-    var lucky = !!(percentageChance > Math.random());
+    const minAmountOfTime = !(this.drawCounter % minFrequency);
+    const lucky = !!(percentageChance > Math.random());
     return minAmountOfTime && lucky;
   }
 
@@ -61,22 +61,22 @@ export default class {
 
   emitScenery() {
     if (!this.shouldCreateSprite(20)) { return; }
-    var randomClassIndex = Math.floor(Math.random() * this.sceneryClasses.length);
-    var SceneryClass = this.sceneryClasses[randomClassIndex];
-    var scenery = new SceneryClass(this.context);
+    const randomClassIndex = Math.floor(Math.random() * this.sceneryClasses.length);
+    const SceneryClass = this.sceneryClasses[randomClassIndex];
+    const scenery = new SceneryClass(this.context);
 
     this.sprites.push(scenery);
   }
 
   emitPizza() {
     if (!this.shouldCreateSprite(10)) { return; }
-    var pizza = new Pizza(this.context);
+    const pizza = new Pizza(this.context);
     this.sprites.push(pizza);
   }
 
   emitCatBed() {
     if (!this.shouldCreateSprite(60, 0.5)) { return; }
-    var catBed = new CatBed(this.context);
+    const catBed = new CatBed(this.context);
     this.sprites.push(catBed);
   }
 

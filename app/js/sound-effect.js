@@ -8,12 +8,12 @@ export default class {
   }
 
   loadAudio(path) {
-    var request = new XMLHttpRequest();
+    const request = new XMLHttpRequest();
     request.open('GET', path, true);
     request.responseType = 'arraybuffer';
 
     request.onload = () => {
-      var data = request.response;
+      const data = request.response;
       this.decodeAudio(data);
     };
 
