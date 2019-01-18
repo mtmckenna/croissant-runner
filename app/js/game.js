@@ -2,6 +2,10 @@ import Croissant from './croissant';
 import SpriteEmitter from './sprite-emitter';
 import SoundEffect from './sound-effect';
 
+import { throttled } from './util';
+
+const MUTE_THROTTLE_DELAY = 1000;
+
 export default class {
   constructor(canvas) {
     this.canvas = canvas;
@@ -21,6 +25,7 @@ export default class {
     this._hiScore = 0;
     this.userHasInteracted = false;
     this.gameOver = false;
+    this.mute = true;
 
     this.addInputListeners();
   }
@@ -35,6 +40,21 @@ export default class {
     return this._hiScore;
   }
 
+  mutePressed() {
+    this.mute = !this.mute;
+
+    const volumeOffIcon = document.getElementById('volume-off');
+    const voulmeOnIcon = document.getElementById('volume-on');
+
+    if (!this.mute) {
+      volumeOffIcon.classList.remove('visible');    
+      voulmeOnIcon.classList.add('visible');    
+    } else {
+      volumeOffIcon.classList.add('visible');    
+      voulmeOnIcon.classList.remove('visible');
+    }
+  }
+
   configureCanvas() {
     this.canvas.style.backgroundColor = '#66ccff';
     this.canvas.width  = this.width;
@@ -42,6 +62,13 @@ export default class {
   }
 
   addInputListeners() {
+    const volumeIcons = Array.from(document.getElementsByClassName('volume'));
+    const throttledMute = throttled(MUTE_THROTTLE_DELAY, this.mutePressed.bind(this));
+    volumeIcons.forEach((icon) => {
+      icon.addEventListener('click', throttledMute);
+      icon.addEventListener('touchstart', throttledMute);
+    });
+
     window.addEventListener('keydown', this.jump.bind(this));
     window.addEventListener('mousedown', this.jump.bind(this));
     window.addEventListener('touchstart', this.jump.bind(this));
@@ -56,17 +83,16 @@ export default class {
   // iOS web audio is such misery.
   // https://paulbakaus.com/tutorials/html5/web-audio-on-ios/
   prepareMobileAudio() {
-    if (!this.userHasInteracted) {
+    if (this.userHasInteracted) return;
 
-      const buffer = this.audioContext.createBuffer(1, 1, 22050);
-      const source = this.audioContext.createBufferSource();
+    const buffer = this.audioContext.createBuffer(1, 1, 22050);
+    const source = this.audioContext.createBufferSource();
 
-      source.buffer = buffer;
-      source.connect(this.audioContext.destination);
-      source.start(0);
+    source.buffer = buffer;
+    source.connect(this.audioContext.destination);
+    source.start(0);
 
-      this.userHasInteracted = true;
-    }
+    this.userHasInteracted = true;
   }
 
   configureAudioEffects(audioContext) {
@@ -132,6 +158,7 @@ export default class {
   }
 
   playAudio(effectName) {
+    if (this.mute) return;
     this.audioHash[effectName].play();
   }
 

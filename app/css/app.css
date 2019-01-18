@@ -32,3 +32,16 @@ canvas {
 .tall-canvas {
   width: 100%;
 }
+
+.volume {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  height: 50px;
+  width: 50px;
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
